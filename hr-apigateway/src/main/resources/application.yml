@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: hr-apigateway # Nome do seu serviço Gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Habilita o Discovery Locator
+          lower-case-service-id: true # Converte o ID do serviço para minúsculas
+      routes:
+        - id: hr-payroll-route # ID único para a rota
+          uri: lb://HR-PAYROLL # lb:// indica balanceamento de carga com Eureka
+          predicates:
+            - Path=/hr-payroll/** # Todas as requisições para /hr-payroll/ serão roteadas
+        - id: hr-worker-route # Outra rota para hr-worker
+          uri: lb://HR-WORKER
+          predicates:
+            - Path=/hr-worker/**
+        # Adicione mais rotas conforme seus microsserviços (ex: /hr-user/** para hr-user)
+
+server:
+  port: 8000 # Porta onde seu API Gateway estará acessível
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka # URL do seu Eureka Server
+  instance:
+    hostname: localhost # Nome do host do seu Gateway no Eureka (pode ser localhost para desenvolvimento)
