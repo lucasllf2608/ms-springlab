@@ -4,17 +4,28 @@ spring:
   cloud:
     gateway:
       routes:
+        # Rota para o serviço HR-PAYROLL
         - id: hr-payroll
           uri: lb://HR-PAYROLL
           predicates:
-            - Path=/hr-payroll/** 
-          filters:
+            - Path=/hr-payroll/** # Linha 12: Corrigida para terminar aqui
+          filters: # Linha 13: Começa em nova linha e no mesmo nível de 'predicates'
             - RewritePath=/hr-payroll/(?<segment>.*), /${segment}
+            
+        # Rota para o serviço HR-WORKER
+        - id: hr-worker
+          uri: lb://HR-WORKER 
+          predicates:
+            - Path=/hr-worker/** # Linha 16: Corrigida para terminar aqui
+          filters: # Linha 17: Começa em nova linha e no mesmo nível de 'predicates'
+            - RewritePath=/hr-worker/(?<segment>.*), /${segment}
+            
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
+    
 server:
   port: 8000
