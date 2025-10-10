@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.msspringlab.hrworker.entities.Worker;
 import com.msspringlab.hrworker.repositories.WorkerRepository;
 
+@RefreshScope
 @RestController
 @RequestMapping(value = "/workers")
 public class WorkerResource {
@@ -42,9 +44,8 @@ public class WorkerResource {
 	
 
 	@GetMapping(value = "/configs")
-	public void getConfigs(){
-		 /* return new ResponseEntity<>("teste "+testConfig, (Objects.requireNonNull(HttpStatus.OK))); */
-			System.out.println("te4ste");
+	public ResponseEntity<String> getConfigs(){
+		 return new ResponseEntity<>("teste "+testConfig, (Objects.requireNonNull(HttpStatus.OK)));
 	} 
 	
 	
