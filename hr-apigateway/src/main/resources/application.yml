@@ -8,17 +8,25 @@ spring:
         - id: hr-payroll
           uri: lb://HR-PAYROLL
           predicates:
-            - Path=/hr-payroll/** # Linha 12: Corrigida para terminar aqui
-          filters: # Linha 13: Começa em nova linha e no mesmo nível de 'predicates'
+            - Path=/hr-payroll/**
+          filters:
             - RewritePath=/hr-payroll/(?<segment>.*), /${segment}
             
         # Rota para o serviço HR-WORKER
         - id: hr-worker
           uri: lb://HR-WORKER 
           predicates:
-            - Path=/hr-worker/** # Linha 16: Corrigida para terminar aqui
-          filters: # Linha 17: Começa em nova linha e no mesmo nível de 'predicates'
+            - Path=/hr-worker/**
+          filters:
             - RewritePath=/hr-worker/(?<segment>.*), /${segment}
+                        
+        # Rota para o serviço HR-USER
+        - id: hr-user
+          uri: lb://HR-USER
+          predicates:
+            - Path=/hr-user/**
+          filters:
+            - RewritePath=/hr-user/(?<segment>.*), /${segment}            
             
 eureka:
   client:
