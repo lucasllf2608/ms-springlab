@@ -28,6 +28,14 @@ spring:
           filters:
             - RewritePath=/hr-user/(?<segment>.*), /${segment}            
             
+        # Rota para o serviço HR-OAUTH  <-- NOVO BLOCO ADICIONADO
+        - id: hr-oauth 
+          uri: lb://HR-OAUTH
+          predicates:
+            - Path=/hr-oauth/**
+          filters:
+            - RewritePath=/hr-oauth/(?<segment>.*), /${segment}
+
 eureka:
   client:
     service-url:
