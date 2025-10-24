@@ -28,7 +28,7 @@ spring:
           filters:
             - RewritePath=/hr-user/(?<segment>.*), /${segment}            
             
-        # Rota para o serviço HR-OAUTH  <-- NOVO BLOCO ADICIONADO
+        # Rota para o serviço HR-OAUTH
         - id: hr-oauth 
           uri: lb://HR-OAUTH
           predicates:
